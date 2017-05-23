@@ -1,10 +1,11 @@
-var questionArray = [new question("How far is the sun in sols?",["0","1","2","9.8"],1),new question("What is the greatest city in the bay?",["Port Costa","San Francisco", "Oakland","Sausalito"],0),new question("The following is a non-exhaustive list of Michael's Bay to Breaker's costumes. Which sucked the most to run in?",["Thor","Super Bloom", "Winnie the Pooh","Adam"],2), new question("How many kitkats did I eat in class on Monday?",["1","2", "At least 3"],2)];
+var questionArray = [new question("How far is the sun in sols?",["0","1","2","9.8"],1),new question("What is the greatest city in the bay?",["Port Costa","San Francisco", "Oakland","Sausalito"],0),new question("The following is a non-exhaustive list of Michael's Bay to Breaker's costumes. Which sucked the most to run in?",["Thor","Super Bloom", "Winnie the Pooh","Adam"],2), new question("How many kitkats did I eat in class on Monday?",["1","2", "3", "5+"],3)];
 var user1Answer = "";
 var questionNumber = 0;
 var correctAnswer = "";
 var liveQuestion = false;
 var rights = 0;
 var wrongs = 0;
+var gameStart = false;
 
 function question(question, answerArray, rightAnswerIndex) {
 	this.question = question;
@@ -117,5 +118,11 @@ function outOfTime() {
 	setTimeout(newQuestion,5000);
 }
 
-reset();
-setTimeout(newQuestion,3000);
+$("html").click(function() {
+	if(gameStart === false) {
+		gameStart = true;
+		$("#starterText").empty();
+		reset();
+		newQuestion();
+	}
+});
