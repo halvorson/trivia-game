@@ -1,4 +1,4 @@
-var questionArray = [new question("How far is the sun in sols?",["0","1","2","9.8"],1),new question("What is the greatest city in the bay?",["Port Costa","San Francisco", "Oakland","Sausalito"],0),new question("The following is a non-exhaustive list of Michael's Bay to Breaker's costumes. Which sucked the most to run in?",["Thor","Super Bloom", "Winnie the Pooh","Adam"],2), new question("How many kitkats did I eat in class on Monday?",["1","2", "3", "5+"],3)];
+var questionArray = [new question("How far is the sun in AUs?",["0","1","2","9.8"],1,'assets/images/sunearthdistance.png'),new question("What is the greatest city in the bay?",["Port Costa","San Francisco", "Oakland","Sausalito"],0,'assets/images/portcosta.jpg'),new question("What body of water is Port Costa on?",["SF Bay","Pacific Ocean", "Sacramento River", "Carquinez Strait"],3,'assets/images/carquinezstrait.png'),new question("The following is a non-exhaustive list of Michael's Bay to Breaker's costumes. Which sucked the most to run in?",["Thor","Super Bloom", "Winnie the Pooh","Adam"],2,'assets/images/winnie.jpg'), new question("How many kitkats did I eat in class on Monday?",["1","2", "3", "5+"],3,'assets/images/kitkats.jpg')];
 var user1Answer = "";
 var questionNumber = 0;
 var correctAnswer = "";
@@ -6,11 +6,13 @@ var liveQuestion = false;
 var rights = 0;
 var wrongs = 0;
 var gameStart = false;
+var question = [];
 
-function question(question, answerArray, rightAnswerIndex) {
+function question(question, answerArray, rightAnswerIndex, img) {
 	this.question = question;
 	this.answerArray = answerArray;
 	this.rightAnswerIndex = rightAnswerIndex;
+	this.img = img;
 };
 
 function reset() {
@@ -24,7 +26,7 @@ function reset() {
 
 
 function newQuestion () {
-	$("#messageBox").empty();
+	$("#messageBox").empty().parent().children("img").remove();
 	$("#answerRow").empty();
 	if (questionNumber === questionArray.length) {
 		gameOver();
@@ -97,10 +99,17 @@ function guess(obj) {
 		if (user1Answer === correctAnswer) {
 			console.log("Hurray");
 			$("#rightAnswers").text(++rights);
-			$("#messageBox").text("Hurray! Next question in 5 seconds.");
+			console.log(question.img);
+			$("#messageBox").text("Hurray! Next question in 5 seconds.").parent().append($('<img />', {
+				src: question.img,
+				width: '500px'
+			}));
 		} else {
 			console.log("Better luck next time");
-			$("#messageBox").text("Wrong! Next question in 5 seconds.");
+			$("#messageBox").text("Wrong! Next question in 5 seconds.").parent().append($('<img />', {
+				src: question.img,
+				width: '500px'
+			}));
 			$("#wrongAnswers").text(++wrongs);
 			$("#answer"+user1Answer).css("color","red");
 		}
@@ -111,7 +120,12 @@ function guess(obj) {
 
 function outOfTime() {
 	$("#wrongAnswers").text(++wrongs);
-	$("#messageBox").text("You're out of time. Gotta be a little quicker!\r\nNext question in 5 seconds.");
+	$("#messageBox").text("You're out of time. Gotta be a little quicker!\r\nNext question in 5 seconds.").parent().append($('<img />', {
+		src: question.img,
+		width: '500px'
+	}));
+	$("#wrongAnswers").text(++wrongs);
+	$("#answer"+user1Answer).css("color","red");
 	$("#answer"+correctAnswer).css("color","green");
 	timer.stop();
 	questionNumber++;
