@@ -121,7 +121,6 @@ function outOfTime() {
 	$("#messageBox").text("You're out of time. Gotta be a little quicker!\r\nNext question in 5 seconds.").parent().append($('<img />', {
 		src: question.img
 	}));
-	$("#wrongAnswers").text(++wrongs);
 	$("#answer"+user1Answer).css("color","red");
 	$("#answer"+correctAnswer).css("color","green");
 	timer.stop();
