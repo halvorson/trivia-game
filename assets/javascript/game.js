@@ -101,14 +101,12 @@ function guess(obj) {
 			$("#rightAnswers").text(++rights);
 			console.log(question.img);
 			$("#messageBox").text("Hurray! Next question in 5 seconds.").parent().append($('<img />', {
-				src: question.img,
-				width: '500px'
+				src: question.img
 			}));
 		} else {
 			console.log("Better luck next time");
 			$("#messageBox").text("Wrong! Next question in 5 seconds.").parent().append($('<img />', {
-				src: question.img,
-				width: '500px'
+				src: question.img
 			}));
 			$("#wrongAnswers").text(++wrongs);
 			$("#answer"+user1Answer).css("color","red");
@@ -121,8 +119,7 @@ function guess(obj) {
 function outOfTime() {
 	$("#wrongAnswers").text(++wrongs);
 	$("#messageBox").text("You're out of time. Gotta be a little quicker!\r\nNext question in 5 seconds.").parent().append($('<img />', {
-		src: question.img,
-		width: '500px'
+		src: question.img
 	}));
 	$("#wrongAnswers").text(++wrongs);
 	$("#answer"+user1Answer).css("color","red");
